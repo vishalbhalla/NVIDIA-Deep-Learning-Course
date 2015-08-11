@@ -12,14 +12,14 @@
 # ---
 # Before we begin, let's verify [WebSockets](http://en.wikipedia.org/wiki/WebSocket) are working on your system.  To do this, execute the cell block below by giving it focus (clicking on it with your mouse), and hitting Ctrl-Enter, or pressing the play button in the toolbar above.  If all goes well, you should see some output returned below the grey cell.  If not, please consult the [Self-paced Lab Troubleshooting FAQ](https://developer.nvidia.com/self-paced-labs-faq#Troubleshooting) to debug the issue.
 
-# In[ ]:
+# In[1]:
 
 print "The answer should be three: " + str(1+2)
 
 
 # Let's execute the cell below to display information about the GPUs running on the server.
 
-# In[ ]:
+# In[2]:
 
 get_ipython().system(u'nvidia-smi')
 
@@ -46,7 +46,7 @@ get_ipython().system(u'nvidia-smi')
 # 
 # After executing the below cell, it will load the image into memory and display it for you.
 
-# In[ ]:
+# In[3]:
 
 get_ipython().magic(u'matplotlib inline')
 import os
@@ -65,7 +65,7 @@ plt.show()
 
 # Once the image is displayed above, execute the below cell to get some predictions about what the image is showing.
 
-# In[ ]:
+# In[4]:
 
 get_ipython().system(u'/home/ubuntu/notebook/DLIntro/overfeat/bin/linux_64/cuda/overfeat_cuda -l -n 10 $image')
 
@@ -205,7 +205,7 @@ solver_mode: GPU
 # 
 # Training the model is as simple as running the cell below.  When you do so, you will see a large number of messages flying by.  First the network will be initialized layer by layer and then training will begin.  After each 100 training iterations you will get an update on the training loss which should be decreasing and after each 500 you will get an update on the accuracy against a test set (Test net output #0) which should be increasing.  An iteration is when the network trains on each image in the training set exactly once.  **Training the network takes a couple of minutes**, so spend the time familiarizing yourself with Caffe's output - keep scrolling to the bottom of the output window to see the latest updates.
 
-# In[ ]:
+# In[5]:
 
 get_ipython().system(u'cd /home/ubuntu/caffe && ./build/tools/caffe train --solver=examples/cifar10/cifar10_quick_solver.prototxt')
 
@@ -216,7 +216,7 @@ get_ipython().system(u'cd /home/ubuntu/caffe && ./build/tools/caffe train --solv
 # 
 # Classifying new images using the newly trained dataset is just as simple as training was - this time we will use Caffe's Python interface.  Activate the cell below as many times as you like to randomly choose an image from the test set and have it classified - there is no need to edit any of the code. Remember - the test set is images that were never used in training the network.
 
-# In[ ]:
+# In[6]:
 
 # Import required Python libraries
 get_ipython().magic(u'matplotlib inline')
@@ -260,7 +260,7 @@ print classes[prediction[0].argmax()]
 
 # Even for this relatively small dataset and network architecture GPU acceleration is still highly desirable.  Running the cell below will train the same network for 100 iterations using the CPU - as you will see, it is considerably slower than training on the GPU was above. Training for 0.025 times as many iterations takes about 50% more time!
 
-# In[ ]:
+# In[7]:
 
 get_ipython().system(u'cd /home/ubuntu/caffe && ./build/tools/caffe train --solver=examples/cifar10/cifar10_quick_solver_cpu.prototxt')
 
@@ -289,7 +289,7 @@ get_ipython().system(u'cd /home/ubuntu/caffe && ./build/tools/caffe train --solv
 # 
 # **WARNING!** It is important that you execute each of the following cells in order as they build upon each other. It is suggested you execute the cells before parsing through the code - some of them can take a minute or two to run.  Remember to watch the circle in the top-right of the window - while it is solid the cell is still executing.
 
-# In[ ]:
+# In[9]:
 
 import os
 os.chdir('/home/ubuntu/notebook/DLIntro')
@@ -367,7 +367,7 @@ class LeNetConvPoolLayer(object):
 
 # Next we define our CNN training parameters:
 
-# In[ ]:
+# In[10]:
 
 learning_rate=0.1
 dataset='/home/ubuntu/notebook/mnist.pkl.gz'
@@ -377,7 +377,7 @@ batch_size=128
 
 # We now run some pre-built scripts to load the MNIST dataset and compute how many training batches we will have given our chosen batch size:
 
-# In[ ]:
+# In[11]:
 
 from logistic_sgd import load_data
 
@@ -410,7 +410,7 @@ print '... data loaded.'
 
 # Now we define our actual CNN layer-by-layer - again, spend as much time as like reviewing the code to understand Theano's syntax, but don't worry if you don't understand all the details.
 
-# In[ ]:
+# In[12]:
 
 print '... building the model'
 
@@ -513,7 +513,7 @@ print '... model built'
 
 # Now we can actually train the CNN. After each iteration you will see an updated visualization of the learned feature layers in the network - this will allow you to see what the network is learning to look for to differentiate the digit classes.  Note that the training cost displayed during training is not easily interpretable in terms of the actual network performance, but as a relative measure you should see it decreasing as the networks learns.  After executing this cell, scroll down to see the training in action!
 
-# In[ ]:
+# In[13]:
 
 ###############
 # TRAIN MODEL #
@@ -653,7 +653,7 @@ print('Best validation score of %f %% obtained at iteration %i, '
 # 
 # **NOTE** If you try the `linux` style, the output will be randomly generated text (character by character) that looks like kernel source code. This is not an error!
 
-# In[ ]:
+# In[14]:
 
 get_ipython().run_cell_magic(u'bash', u'', u"style='tolstoy'  # Choose from: tinyshakespeare, tolstoy, obama, linux\ncd /home/ubuntu/notebook/DLIntro/char-rnn/\nth sample.lua checkpoints/$style/checkpoint.t7 -gpuid 0 -length 500 -primetext ' '")
 
@@ -695,3 +695,8 @@ get_ipython().run_cell_magic(u'bash', u'', u"style='tolstoy'  # Choose from: tin
 # ## Summary
 # 
 # In this class we have shown that there are a variety of exciting applications of DL that are accesible today through the open-source frameworks Caffe, Theano and Torch.  Each of these frameworks has their own unique advantages and are better suited to different types of user and application.  Hopefully this tour has given you some insight into which frameworks may best suit your research or development needs.  In the coming weeks we will be releasing more classes which dive deeper into the specific workings of each of these frameworks.
+
+# In[ ]:
+
+
+
